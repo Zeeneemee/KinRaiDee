@@ -1,0 +1,84 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User{
+  UserId Int @id @unique@default(autoincrement())
+  UserName String
+  Email String
+  LineId String
+  Preferences UserPreference []
+}
+
+model Restaurant{
+  RestaurantId Int @id @unique@default(autoincrement())
+  Name String
+  CuisneType String
+  Location       String
+  PriceRange     String
+  Ambiance       RestaurantAmbience[]
+  MealTypes      RestaurantMealTypes[]
+  Accommodations RestaurantAccommodations[]
+}
+
+model Ambiance{
+  AmbienceId Int @id @unique@default(autoincrement())
+  AmbienceType String
+  RestaurantAmbience RestaurantAmbience[]
+}
+
+model MealTypes{
+  MealTypesId Int @id @unique@default(autoincrement())
+  MealType String
+  RestaurantMealTypes RestaurantMealTypes[]
+}
+
+model Accommodations{
+  AccommodationsId Int @id @unique@default(autoincrement())
+  Accommodation String
+  RestaurantAccommodations RestaurantAccommodations[]
+}
+
+model RestaurantAmbience{
+  RestaurantId Int
+  AmbienceId Int 
+  AmbienceType Ambiance @relation(fields:[AmbienceId], references: [AmbienceId])
+  Restaurant Restaurant @relation(fields: [RestaurantId], references: [RestaurantId])
+  @@id ([RestaurantId, AmbienceId])
+}
+
+model RestaurantMealTypes {
+  RestaurantId Int
+  MealTypesId  Int
+  MealType     MealTypes @relation(fields: [MealTypesId], references: [MealTypesId])
+  Restaurant   Restaurant @relation(fields: [RestaurantId], references: [RestaurantId])
+  @@id([RestaurantId, MealTypesId])
+}
+
+model RestaurantAccommodations{
+  RestaurantId Int
+  AccommodationsId Int 
+  Restaurant Restaurant @relation(fields: [RestaurantId], references: [RestaurantId])
+  Accommodations Accommodations @relation(fields: [AccommodationsId], references: [AccommodationsId])
+  @@id([RestaurantId, AccommodationsId])
+}
+
+model UserPreference{
+  UserPreferenceId Int @id @unique@default(autoincrement())
+  UserId Int
+  RestaurantId Int
+  UserPreferenceType String
+  UserPreferenceValue String
+  User User @relation(fields: [UserId], references: [UserId])
+  // Restaurant Restaurant @relation(fields: [RestaurantId], references: [RestaurantId])
+}
