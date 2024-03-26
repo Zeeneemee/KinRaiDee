@@ -20,68 +20,68 @@ model User{
   Preferences UserPreference []
 }
 
-model Restaurant{
-  RestaurantId Int @id @unique@default(autoincrement())
+model Cafe{
+  CafeId Int @id @unique@default(autoincrement())
   Name String
   CuisneType String
   Location       String
   PriceRange     String
-  Ambiance       RestaurantAmbience[]
-  MealTypes      RestaurantMealTypes[]
-  Accommodations RestaurantAccommodations[]
+  Ambiance       CafeAmbience[]
+  MealTypes      CafeMealTypes[]
+  Accommodations CafeAccommodations[]
 
 }
 
 
-model Ambiance{
+model Ambience{
   AmbienceId Int @id@default(autoincrement())
   AmbienceType String @unique
-  RestaurantAmbience RestaurantAmbience[]
+  CafeAmbience CafeAmbience[]
 }
 
 model MealTypes{
   MealTypesId Int @id @default(autoincrement())
   MealType String @unique
-  RestaurantMealTypes RestaurantMealTypes[]
+  CafeMealTypes CafeMealTypes[]
 }
 
 model Accommodations{
   AccommodationsId Int @id @default(autoincrement())
   Accommodation String @unique
-  RestaurantAccommodations RestaurantAccommodations[]
+  CafeAccommodations CafeAccommodations[]
 }
 
 
-model RestaurantAmbience{
-  RestaurantId Int
+model CafeAmbience{
+  CafeId Int
   AmbienceId Int 
-  AmbienceType Ambiance @relation(fields:[AmbienceId], references: [AmbienceId])
-  Restaurant Restaurant @relation(fields: [RestaurantId], references: [RestaurantId])
-  @@id ([RestaurantId, AmbienceId])
+  AmbienceType Ambience @relation(fields:[AmbienceId], references: [AmbienceId])
+  Cafe Cafe @relation(fields: [CafeId], references: [CafeId])
+  @@id ([CafeId, AmbienceId])
 }
 
-model RestaurantMealTypes {
-  RestaurantId Int
+model CafeMealTypes {
+  CafeId Int
   MealTypesId  Int
   MealType     MealTypes @relation(fields: [MealTypesId], references: [MealTypesId])
-  Restaurant   Restaurant @relation(fields: [RestaurantId], references: [RestaurantId])
-  @@id([RestaurantId, MealTypesId])
+  Cafe   Cafe @relation(fields: [CafeId], references: [CafeId])
+  @@id([CafeId, MealTypesId])
 }
 
-model RestaurantAccommodations{
-  RestaurantId Int
+model CafeAccommodations{
+  CafeId Int
   AccommodationsId Int 
-  Restaurant Restaurant @relation(fields: [RestaurantId], references: [RestaurantId])
+  Cafe Cafe @relation(fields: [CafeId], references: [CafeId])
   Accommodations Accommodations @relation(fields: [AccommodationsId], references: [AccommodationsId])
-  @@id([RestaurantId, AccommodationsId])
+  @@id([CafeId, AccommodationsId])
 }
 
 model UserPreference{
   UserPreferenceId Int @id @unique@default(autoincrement())
   UserId Int
-  RestaurantId Int
+  CafeId Int
   UserPreferenceType String
   UserPreferenceValue String
   User User @relation(fields: [UserId], references: [UserId])
-  // Restaurant Restaurant @relation(fields: [RestaurantId], references: [RestaurantId])
+  // Cafe Cafe @relation(fields: [CafeId], references: [CafeId])
 }

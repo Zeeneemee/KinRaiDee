@@ -5,12 +5,12 @@ const prisma = new PrismaClient();
 async function ensureAmbiancesExist() {
   const ambiances = ['Cozy', 'Romantic'];
   for (const ambianceType of ambiances) {
-      const ambiance = await prisma.ambiance.findUnique({
+      const ambiance = await prisma.ambience.findUnique({
           where: { AmbienceType: ambianceType },
       });
 
       if (!ambiance) {
-          await prisma.ambiance.create({
+          await prisma.ambience.create({
               data: { AmbienceType: ambianceType },
           });
       }
@@ -18,7 +18,7 @@ async function ensureAmbiancesExist() {
 }
 
 async function createRestaurant() {
-  const restaurant = await prisma.restaurant.create({
+  const restaurant = await prisma.cafe.create({
       data: {
           Name: "Gourmet Paradise",
           CuisneType: "Multi-Cuisine", // Note the typo in your schema; consider correcting it to "CuisineType"
@@ -28,16 +28,16 @@ async function createRestaurant() {
   });
   return restaurant;
 }
-async function addAmbianceToRestaurant(restaurantId:number, ambiances:string[]) {
+async function addAmbianceToRestaurant(cafeId:number, ambiances:string[]) {
     for (const ambianceType of ambiances) {
-        const ambiance = await prisma.ambiance.findUnique({
+        const ambiance = await prisma.ambience.findUnique({
             where: { AmbienceType: ambianceType },
         });
         console.log(ambiance);
         if (ambiance) {
-            await prisma.restaurantAmbience.create({
+            await prisma.cafeAmbience.create({
                 data: {
-                    RestaurantId: restaurantId,
+                    CafeId: cafeId,
                     AmbienceId: ambiance.AmbienceId,
                 },
             });
@@ -46,16 +46,4 @@ async function addAmbianceToRestaurant(restaurantId:number, ambiances:string[]) 
 }
 
 // Example usage
-async function main() {
-    await ensureAmbiancesExist();
-    const restaurant = await createRestaurant();
-    await addAmbianceToRestaurant(restaurant.RestaurantId, ['Cozy', 'Romantic']);
-}
-
-main()
-    .catch((e) => {
-        throw e;
-    })
-    .then(async () => {
-        await prisma.$disconnect();
-    });
+module.exports = ensureAmbiancesExist,addAmbianceToRestaurant,createRestaurant
