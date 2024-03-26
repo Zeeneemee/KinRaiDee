@@ -29,25 +29,28 @@ model Restaurant{
   Ambiance       RestaurantAmbience[]
   MealTypes      RestaurantMealTypes[]
   Accommodations RestaurantAccommodations[]
+
 }
 
+
 model Ambiance{
-  AmbienceId Int @id @unique@default(autoincrement())
-  AmbienceType String
+  AmbienceId Int @id@default(autoincrement())
+  AmbienceType String @unique
   RestaurantAmbience RestaurantAmbience[]
 }
 
 model MealTypes{
-  MealTypesId Int @id @unique@default(autoincrement())
-  MealType String
+  MealTypesId Int @id @default(autoincrement())
+  MealType String @unique
   RestaurantMealTypes RestaurantMealTypes[]
 }
 
 model Accommodations{
-  AccommodationsId Int @id @unique@default(autoincrement())
-  Accommodation String
+  AccommodationsId Int @id @default(autoincrement())
+  Accommodation String @unique
   RestaurantAccommodations RestaurantAccommodations[]
 }
+
 
 model RestaurantAmbience{
   RestaurantId Int
