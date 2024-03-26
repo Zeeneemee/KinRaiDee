@@ -11,14 +11,16 @@ app.post('/userPref')
 - Name String
 - Location String
 - PriceRange String
+- Opening String
 - Cuisine String
 - Ambience RestaurantAmbience[]
 - Meal RestaurantMeal[]
 
 
-**addRestaurant:
+**addRestaurant**:
 **- Add Restaurant
 - Add Ambience (Cozy, Tech, Light, Dark)
 - Add Meal(brunch, coffee, Cake)
+- Add Accommodation (Parking, Wifi, Discount/Promotion)
 
 
