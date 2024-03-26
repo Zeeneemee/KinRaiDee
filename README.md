@@ -1,4 +1,4 @@
-# KinRaiDee
+# KinRaiDee 🍰🍕🎂☕️
 **Food recommendation line integrated web app**
 
 server.ts
@@ -6,8 +6,8 @@ App Routing
 
 app.post('/userPref')
 
-**Restaurant**
-- RestaurantId Int @id@default(autoIncrement())
+**Cafe**
+- CafeId Int @id@default(autoIncrement())
 - Name String
 - Location String
 - PriceRange String
@@ -17,7 +17,7 @@ app.post('/userPref')
 - Meal RestaurantMeal[]
 
 
-**addRestaurant**:
+**addCafet**:
 **- Add Restaurant
 - Add Ambience (Cozy, Tech, Light, Dark)
 - Add Meal(brunch, coffee, Cake)
