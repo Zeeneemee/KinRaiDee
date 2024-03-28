@@ -1,11 +1,10 @@
 const puppeteer = require('puppeteer');
 
 async function launchBrowserWithDefaultAccount(link:string) {
-    const userDataDir = './user_data'; // Specify a directory path for user data
 
     const browser = await puppeteer.launch({
         headless: false, // User profiles don’t work in headless mode.
-        userDataDir: userDataDir
+        
     });
 
     const page = await browser.newPage();
