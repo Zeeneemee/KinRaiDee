@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Cafe" ALTER COLUMN "Name" DROP NOT NULL;

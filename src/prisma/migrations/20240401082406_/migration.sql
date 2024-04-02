@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Cafe" ALTER COLUMN "GoogleMapLink" DROP NOT NULL,
+ALTER COLUMN "GoogleMapLink" DROP DEFAULT;

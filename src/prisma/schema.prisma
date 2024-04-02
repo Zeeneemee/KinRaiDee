@@ -22,14 +22,16 @@ model User{
 
 model Cafe{
   CafeId Int @id @unique@default(autoincrement())
-  Name String
-  CuisneType String
-  Location       String
-  PriceRange     String
+  Name String? @unique
+  Location       String?
+  GoogleMapLink  String?
+  PriceRange     String?
+  PhoneNumber    String?
+  OpeningHours   String?
+  Website        String?
   Ambiance       CafeAmbience[]
   MealTypes      CafeMealTypes[]
   Accommodations CafeAccommodations[]
-
 }
 
 
@@ -37,18 +39,21 @@ model Ambience{
   AmbienceId Int @id@default(autoincrement())
   AmbienceType String @unique
   CafeAmbience CafeAmbience[]
+  UserPreference UserPreference[]
 }
 
 model MealTypes{
   MealTypesId Int @id @default(autoincrement())
   MealType String @unique
   CafeMealTypes CafeMealTypes[]
+  UserPreference UserPreference[]
 }
 
 model Accommodations{
   AccommodationsId Int @id @default(autoincrement())
   Accommodation String @unique
   CafeAccommodations CafeAccommodations[]
+  UserPreference UserPreference[]
 }
 
 
@@ -77,11 +82,17 @@ model CafeAccommodations{
 }
 
 model UserPreference{
-  UserPreferenceId Int @id @unique@default(autoincrement())
+  UserPreferenceId Int @id @default(autoincrement())
   UserId Int
-  CafeId Int
-  UserPreferenceType String
-  UserPreferenceValue String
   User User @relation(fields: [UserId], references: [UserId])
-  // Cafe Cafe @relation(fields: [CafeId], references: [CafeId])
+  
+  AmbienceId Int? 
+  Ambience Ambience? @relation(fields: [AmbienceId], references: [AmbienceId])
+
+  MealTypesId Int? 
+  MealTypes MealTypes? @relation(fields: [MealTypesId], references: [MealTypesId])
+
+  AccommodationsId Int? 
+  Accommodations Accommodations? @relation(fields: [AccommodationsId], references: [AccommodationsId])
 }
+

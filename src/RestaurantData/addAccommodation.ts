@@ -36,3 +36,5 @@ export const addAccommodationToCafe = async (CafeId:number,Accommodation:string[
 }
 
 module.exports = addAccommodationToCafe,checkAccommodation
+
+addAccommodationToCafe(1,['Parking','Wifi'])
