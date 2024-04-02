@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-const checkMealType = async () => {
+export const checkMealType = async () => {
     // List of meal types
     const mealTypes = ['coffee','bakery','cake','ice-cream','brunch','one-dish-meal'];
     for (const mealType of mealTypes) {
@@ -17,7 +17,7 @@ const checkMealType = async () => {
         }
     }
 }
-const addMealTypeToCafe = async (CafeId:number, mealTypes:string[]) => {
+export const addMealTypeToCafe = async (CafeId:number, mealTypes:string[]) => {
     for (const mealType of mealTypes) {
         const meal = await prisma.mealTypes.findUnique({
             where: { MealType: mealType },
@@ -34,4 +34,3 @@ const addMealTypeToCafe = async (CafeId:number, mealTypes:string[]) => {
     }
 }
 
-module.exports = addMealTypeToCafe,checkMealType

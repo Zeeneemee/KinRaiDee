@@ -3,7 +3,7 @@ const prisma = new PrismaClient();
 
 
 
-const checkAccommodation = async () => {
+export const checkAccommodation = async () => {
     const accommodations : string[] = ['Parking', 'Wifi','vegan', 'work-friendly', 'pet-friendly', 'outdoor' ]
     for (const accommodation of accommodations){
         const acc = await prisma.accommodations.findUnique({
@@ -17,7 +17,7 @@ const checkAccommodation = async () => {
     }
 }
 
-const addAccommodationToCafe = async (CafeId:number,Accommodation:string[])=>{
+export const addAccommodationToCafe = async (CafeId:number,Accommodation:string[])=>{
     for (const accommodation of Accommodation){
         const acc = await prisma.accommodations.findUnique({
             where: { Accommodation: accommodation },

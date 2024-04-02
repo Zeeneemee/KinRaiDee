@@ -1,9 +1,9 @@
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
-// pseudo-code/JavaScript with Prisma
-async function ensureAmbiancesExist() {
-  const ambiances = ['Cozy', 'Romantic'];
+
+export async function ensureAmbiancesExist() {
+  const ambiances = ['Cozy', 'Romantic','Hommy','Nature','Minimal','Rustic','Modern','Vintage','Elegant','Luxury','Loft','Loft Vintage','Cartoon',"English",'Classic'];
   for (const ambianceType of ambiances) {
       const ambiance = await prisma.ambience.findUnique({
           where: { AmbienceType: ambianceType },
@@ -17,18 +17,8 @@ async function ensureAmbiancesExist() {
   }
 }
 
-async function createRestaurant() {
-  const restaurant = await prisma.cafe.create({
-      data: {
-          Name: "Gourmet Paradise",
-          CuisneType: "Multi-Cuisine", // Note the typo in your schema; consider correcting it to "CuisineType"
-          Location: "123 Culinary Street",
-          PriceRange: "$$$",
-      },
-  });
-  return restaurant;
-}
-async function addAmbianceToRestaurant(cafeId:number, ambiances:string[]) {
+
+export async function addAmbianceToRestaurant(cafeId:number, ambiances:string[]) {
     for (const ambianceType of ambiances) {
         const ambiance = await prisma.ambience.findUnique({
             where: { AmbienceType: ambianceType },
@@ -46,4 +36,3 @@ async function addAmbianceToRestaurant(cafeId:number, ambiances:string[]) {
 }
 
 // Example usage
-module.exports = ensureAmbiancesExist,addAmbianceToRestaurant,createRestaurant
